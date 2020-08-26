@@ -76,10 +76,29 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value)) {
                 jobs.add(row);
             }
         }
+
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+            for (HashMap<String, String> job : allJobs) {
+                if ((job.get("name").toLowerCase().contains(value) ||
+                        job.get("position type").toLowerCase().contains(value) ||
+                        job.get("employer").toLowerCase().contains(value) ||
+                        job.get("core competency").toLowerCase().contains(value) ||
+                        job.get("location").toLowerCase().contains(value)) && !jobs.contains(job)) {
+                    jobs.add(job);
+                }
+            }
 
         return jobs;
     }
@@ -124,5 +143,13 @@ public class JobData {
             e.printStackTrace();
         }
     }
+
+
+
+
+        //no duplicate listings
+        //write similar to print jobs, avoid hard coding
+        //utilize loops to search
+        //study findbycolumnandvalue first
 
 }
